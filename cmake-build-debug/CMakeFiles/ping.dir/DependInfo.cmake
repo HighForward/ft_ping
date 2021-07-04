@@ -4,8 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/mnt/c/Users/m4xdo/OneDrive/Bureau/ping/ft_ping.c" "/mnt/c/Users/m4xdo/OneDrive/Bureau/ping/cmake-build-debug/CMakeFiles/ping.dir/ft_ping.c.o"
-  "/mnt/c/Users/m4xdo/OneDrive/Bureau/ping/ping_train.c" "/mnt/c/Users/m4xdo/OneDrive/Bureau/ping/cmake-build-debug/CMakeFiles/ping.dir/ping_train.c.o"
+  "/mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/ft_ping.c" "/mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/cmake-build-debug/CMakeFiles/ping.dir/ft_ping.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

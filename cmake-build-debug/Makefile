@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/c/Users/m4xdo/OneDrive/Bureau/ping
+CMAKE_SOURCE_DIR = /mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/c/Users/m4xdo/OneDrive/Bureau/ping/cmake-build-debug
+CMAKE_BINARY_DIR = /mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/m4xdo/OneDrive/Bureau/ping/cmake-build-debug/CMakeFiles /mnt/c/Users/m4xdo/OneDrive/Bureau/ping/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/cmake-build-debug/CMakeFiles /mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/m4xdo/OneDrive/Bureau/ping/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -150,33 +150,6 @@ ft_ping.c.s:
 	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/ft_ping.c.s
 .PHONY : ft_ping.c.s
 
-ping_train.o: ping_train.c.o
-
-.PHONY : ping_train.o
-
-# target to build an object file
-ping_train.c.o:
-	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/ping_train.c.o
-.PHONY : ping_train.c.o
-
-ping_train.i: ping_train.c.i
-
-.PHONY : ping_train.i
-
-# target to preprocess a source file
-ping_train.c.i:
-	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/ping_train.c.i
-.PHONY : ping_train.c.i
-
-ping_train.s: ping_train.c.s
-
-.PHONY : ping_train.s
-
-# target to generate assembly for a file
-ping_train.c.s:
-	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/ping_train.c.s
-.PHONY : ping_train.c.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -189,9 +162,6 @@ help:
 	@echo "... ft_ping.o"
 	@echo "... ft_ping.i"
 	@echo "... ft_ping.s"
-	@echo "... ping_train.o"
-	@echo "... ping_train.i"
-	@echo "... ping_train.s"
 .PHONY : help
 
 

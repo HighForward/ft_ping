@@ -1,6 +1,5 @@
 file(REMOVE_RECURSE
   "CMakeFiles/ping.dir/ft_ping.c.o"
-  "CMakeFiles/ping.dir/ping_train.c.o"
   "ping"
   "ping.pdb"
 )
