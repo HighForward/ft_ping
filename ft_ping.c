@@ -12,13 +12,14 @@
 #include <time.h>
 #include <fcntl.h>
 #include <signal.h>
-#include <time.h>
+#include <sys/time.h>
 
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
 #define PING_PACKET_SIZE 64
 int errno;
+int STOP = 0;
 
 struct ping_pkt
 {
@@ -54,7 +55,6 @@ void fill_icmp_packet(struct ping_pkt *ping_pkt)
 {
     int i;
 
-    bzero(ping_pkt, sizeof(struct ping_pkt));
     (*ping_pkt).hdr.type = ICMP_ECHO;
     (*ping_pkt).hdr.code = 0;
     (*ping_pkt).hdr.un.echo.id = getpid();
@@ -64,6 +64,7 @@ void fill_icmp_packet(struct ping_pkt *ping_pkt)
         (*ping_pkt).msg[i] = (char)(i + '0');
     (*ping_pkt).msg[i] = 0;
 
+    (*ping_pkt).hdr.checksum = 0;
     (*ping_pkt).hdr.checksum = checksum(&(*ping_pkt), sizeof((*ping_pkt)));
 }
 
@@ -111,6 +112,11 @@ struct sockaddr_in resolve_dns(char *target_host)
     return (addr_host);
 }
 
+void intHandler(int sig) {
+    STOP = 1;
+    write(1, "\n", 1);
+}
+
 int main(int argc, char **argv)
 {
     char *dns_target = "google.com";
@@ -125,28 +131,43 @@ int main(int argc, char **argv)
     if (create_socket(&sockfd) < 0)
         return (-1);
 
-    int STOP = 0;
     struct sockaddr_in r_addr;
     unsigned int addr_len = sizeof(r_addr);
     struct ping_pkt *tmp;
 
+    struct timeval start;
+    struct timeval time_elapsed;
+
+    signal(SIGINT, intHandler);
+
     while (!STOP)
     {
+        usleep(1000000);
+
         fill_icmp_packet(&pckt);
+
+        gettimeofday(&start, NULL);
 
         if (sendto(sockfd, &pckt, sizeof(pckt), 0, (struct sockaddr *) &addr_host, sizeof(struct sockaddr)) < 0)
             return str_error(strerror(errno), 1);
 
-        usleep(1000000);
-
         if (recvfrom(sockfd, pktrecv, sizeof(struct ip) + sizeof(struct ping_pkt), 0, (struct sockaddr *) &r_addr, &addr_len) < 0)
             return str_error(strerror(errno), 1);
 
+        gettimeofday(&time_elapsed, NULL);
+
         tmp = (struct ping_pkt *) (pktrecv + sizeof(struct ip));
 
-        printf("%d bytes from %s (h: %s) (%s) msg_seq=%d ttl=%d rtt = %d ms.\n", PING_PACKET_SIZE, dns_target,
-               dns_target, dns_target, 0, 64, 0);
-
+        if (!STOP)
+        {
+            printf("%d bytes from %s (h: %s) (%s) msg_seq=%d ttl=%d rtt = %ld ms.\n", PING_PACKET_SIZE, dns_target,
+                   dns_target, dns_target, tmp->hdr.un.echo.sequence, 64,
+                   (time_elapsed.tv_usec - start.tv_usec) / 1000);
+        }
     }
+
+    printf("==============================");
+    printf("=========== RESULT ===========");
+    printf("==============================");
 
 }
