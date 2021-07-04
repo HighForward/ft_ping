@@ -1,4 +1,4 @@
-SRCS		=	./ft_ping.c
+SRCS		=	./ft_ping.c ./rtt_utility.c
 
 NAME		=	ft_ping
 
