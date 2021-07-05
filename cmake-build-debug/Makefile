@@ -204,6 +204,33 @@ srcs/rtt_utility.c.s:
 	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/rtt_utility.c.s
 .PHONY : srcs/rtt_utility.c.s
 
+srcs/statistics.o: srcs/statistics.c.o
+
+.PHONY : srcs/statistics.o
+
+# target to build an object file
+srcs/statistics.c.o:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/statistics.c.o
+.PHONY : srcs/statistics.c.o
+
+srcs/statistics.i: srcs/statistics.c.i
+
+.PHONY : srcs/statistics.i
+
+# target to preprocess a source file
+srcs/statistics.c.i:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/statistics.c.i
+.PHONY : srcs/statistics.c.i
+
+srcs/statistics.s: srcs/statistics.c.s
+
+.PHONY : srcs/statistics.s
+
+# target to generate assembly for a file
+srcs/statistics.c.s:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/statistics.c.s
+.PHONY : srcs/statistics.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -222,6 +249,9 @@ help:
 	@echo "... srcs/rtt_utility.o"
 	@echo "... srcs/rtt_utility.i"
 	@echo "... srcs/rtt_utility.s"
+	@echo "... srcs/statistics.o"
+	@echo "... srcs/statistics.i"
+	@echo "... srcs/statistics.s"
 .PHONY : help
 
 

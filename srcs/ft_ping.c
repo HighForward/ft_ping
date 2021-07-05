@@ -103,7 +103,7 @@ struct sockaddr_in resolve_dns(char *target_host, char **ip)
 
 int main(int argc, char **argv)
 {
-    char *dns_target = "google.com";
+    char *dns_target = argv[1];
     struct sockaddr_in addr_host;
     ICMP_pckt pckt;
     ICMP_pckt *tmp;
@@ -111,7 +111,8 @@ int main(int argc, char **argv)
     char *ip;
     int sockfd;
     int nb_pckt_send = 0;
-    
+    int nb_pckt_recv = 0;
+
     addr_host = resolve_dns(dns_target, &ip);
     pktrecv = (unsigned char *) malloc (sizeof(struct ip) + sizeof(ICMP_pckt));
 
@@ -129,32 +130,37 @@ int main(int argc, char **argv)
     printf("PING %s (%s) %d(%d) bytes of data\n", dns_target, ip, 0, 0);
 
     gettimeofday(&start, NULL);
+
+    int reicvd_pkt;
+
     while (!STOP)
     {
+        reicvd_pkt = 0;
         gettimeofday(&start, NULL);
         fill_icmp_packet(&pckt);
 
         if (sendto(sockfd, &pckt, sizeof(pckt), 0, (struct sockaddr *) &addr_host, sizeof(struct sockaddr)) < 0)
             return str_error(strerror(errno), 1);
-
-        if (recvfrom(sockfd, pktrecv, sizeof(struct ip) + sizeof(ICMP_pckt), 0, (struct sockaddr *) &r_addr, &addr_len) < 0)
-            return str_error(strerror(errno), 1);
-
-        gettimeofday(&time_elapsed, NULL);
-
-        tmp = (ICMP_pckt *) (pktrecv + sizeof(struct ip));
-
-        if (!STOP)
+        nb_pckt_send++;
+        if (recvfrom(sockfd, pktrecv, sizeof(struct ip) + sizeof(ICMP_pckt), 0, (struct sockaddr *) &r_addr, &addr_len) >= 0)
         {
+            nb_pckt_recv++;
+            reicvd_pkt = 1;
+        }
+
+        if (!STOP && reicvd_pkt)
+        {
+            gettimeofday(&time_elapsed, NULL);
+            tmp = (ICMP_pckt *) (pktrecv + sizeof(struct ip));
+
             printf("%d bytes from %s (%s): icmp_seq=%d ttl=%d time=%.1f ms\n", PING_PACKET_SIZE, dns_target,
                    ip, tmp->hdr.un.echo.sequence, 64,
-                   (float)(((float)time_elapsed.tv_usec - (float)start.tv_usec) / 1000));
-            nb_pckt_send++;
+                   (float) (((float) time_elapsed.tv_usec - (float) start.tv_usec) / 1000));
             usleep(1000000);
         }
     }
 
     gettimeofday(&time_elapsed, NULL);
     printf("--- %s ping statistics ---\n", dns_target);
-    printf("%d packets transmitted, %d received, %d packets lost, time %ld\n", nb_pckt_send, nb_pckt_send, 0, (time_elapsed.tv_usec - start.tv_usec) / 1000);
+    printf("%d packets transmitted, %d received, %.1f%% packets lost, time %ld\n", nb_pckt_send, nb_pckt_recv, get_average_of(nb_pckt_send, nb_pckt_recv), (time_elapsed.tv_usec - start.tv_usec) / 1000);
 }

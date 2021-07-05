@@ -23,5 +23,6 @@
 int errno;
 
 void fqdn_lookup(char *target_host);
+float get_average_of(float a, float b);
 
 #endif
