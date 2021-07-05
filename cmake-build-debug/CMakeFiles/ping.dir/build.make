@@ -57,30 +57,60 @@ include CMakeFiles/ping.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/ping.dir/flags.make
 
-CMakeFiles/ping.dir/ft_ping.c.o: CMakeFiles/ping.dir/flags.make
-CMakeFiles/ping.dir/ft_ping.c.o: ../ft_ping.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/ping.dir/ft_ping.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ping.dir/ft_ping.c.o   -c /mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/ft_ping.c
+CMakeFiles/ping.dir/srcs/ft_ping.c.o: CMakeFiles/ping.dir/flags.make
+CMakeFiles/ping.dir/srcs/ft_ping.c.o: ../srcs/ft_ping.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/ping.dir/srcs/ft_ping.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ping.dir/srcs/ft_ping.c.o   -c /mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/srcs/ft_ping.c
 
-CMakeFiles/ping.dir/ft_ping.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ping.dir/ft_ping.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/ft_ping.c > CMakeFiles/ping.dir/ft_ping.c.i
+CMakeFiles/ping.dir/srcs/ft_ping.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ping.dir/srcs/ft_ping.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/srcs/ft_ping.c > CMakeFiles/ping.dir/srcs/ft_ping.c.i
 
-CMakeFiles/ping.dir/ft_ping.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ping.dir/ft_ping.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/ft_ping.c -o CMakeFiles/ping.dir/ft_ping.c.s
+CMakeFiles/ping.dir/srcs/ft_ping.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ping.dir/srcs/ft_ping.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/srcs/ft_ping.c -o CMakeFiles/ping.dir/srcs/ft_ping.c.s
+
+CMakeFiles/ping.dir/srcs/rtt_utility.c.o: CMakeFiles/ping.dir/flags.make
+CMakeFiles/ping.dir/srcs/rtt_utility.c.o: ../srcs/rtt_utility.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/ping.dir/srcs/rtt_utility.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ping.dir/srcs/rtt_utility.c.o   -c /mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/srcs/rtt_utility.c
+
+CMakeFiles/ping.dir/srcs/rtt_utility.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ping.dir/srcs/rtt_utility.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/srcs/rtt_utility.c > CMakeFiles/ping.dir/srcs/rtt_utility.c.i
+
+CMakeFiles/ping.dir/srcs/rtt_utility.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ping.dir/srcs/rtt_utility.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/srcs/rtt_utility.c -o CMakeFiles/ping.dir/srcs/rtt_utility.c.s
+
+CMakeFiles/ping.dir/srcs/dns_utility.c.o: CMakeFiles/ping.dir/flags.make
+CMakeFiles/ping.dir/srcs/dns_utility.c.o: ../srcs/dns_utility.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/ping.dir/srcs/dns_utility.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/ping.dir/srcs/dns_utility.c.o   -c /mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/srcs/dns_utility.c
+
+CMakeFiles/ping.dir/srcs/dns_utility.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/ping.dir/srcs/dns_utility.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/srcs/dns_utility.c > CMakeFiles/ping.dir/srcs/dns_utility.c.i
+
+CMakeFiles/ping.dir/srcs/dns_utility.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/ping.dir/srcs/dns_utility.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/srcs/dns_utility.c -o CMakeFiles/ping.dir/srcs/dns_utility.c.s
 
 # Object files for target ping
 ping_OBJECTS = \
-"CMakeFiles/ping.dir/ft_ping.c.o"
+"CMakeFiles/ping.dir/srcs/ft_ping.c.o" \
+"CMakeFiles/ping.dir/srcs/rtt_utility.c.o" \
+"CMakeFiles/ping.dir/srcs/dns_utility.c.o"
 
 # External object files for target ping
 ping_EXTERNAL_OBJECTS =
 
-ping: CMakeFiles/ping.dir/ft_ping.c.o
+ping: CMakeFiles/ping.dir/srcs/ft_ping.c.o
+ping: CMakeFiles/ping.dir/srcs/rtt_utility.c.o
+ping: CMakeFiles/ping.dir/srcs/dns_utility.c.o
 ping: CMakeFiles/ping.dir/build.make
 ping: CMakeFiles/ping.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable ping"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable ping"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ping.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -123,32 +123,86 @@ ping/fast:
 	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/build
 .PHONY : ping/fast
 
-ft_ping.o: ft_ping.c.o
+srcs/dns_utility.o: srcs/dns_utility.c.o
 
-.PHONY : ft_ping.o
+.PHONY : srcs/dns_utility.o
 
 # target to build an object file
-ft_ping.c.o:
-	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/ft_ping.c.o
-.PHONY : ft_ping.c.o
+srcs/dns_utility.c.o:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/dns_utility.c.o
+.PHONY : srcs/dns_utility.c.o
 
-ft_ping.i: ft_ping.c.i
+srcs/dns_utility.i: srcs/dns_utility.c.i
 
-.PHONY : ft_ping.i
+.PHONY : srcs/dns_utility.i
 
 # target to preprocess a source file
-ft_ping.c.i:
-	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/ft_ping.c.i
-.PHONY : ft_ping.c.i
+srcs/dns_utility.c.i:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/dns_utility.c.i
+.PHONY : srcs/dns_utility.c.i
 
-ft_ping.s: ft_ping.c.s
+srcs/dns_utility.s: srcs/dns_utility.c.s
 
-.PHONY : ft_ping.s
+.PHONY : srcs/dns_utility.s
 
 # target to generate assembly for a file
-ft_ping.c.s:
-	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/ft_ping.c.s
-.PHONY : ft_ping.c.s
+srcs/dns_utility.c.s:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/dns_utility.c.s
+.PHONY : srcs/dns_utility.c.s
+
+srcs/ft_ping.o: srcs/ft_ping.c.o
+
+.PHONY : srcs/ft_ping.o
+
+# target to build an object file
+srcs/ft_ping.c.o:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/ft_ping.c.o
+.PHONY : srcs/ft_ping.c.o
+
+srcs/ft_ping.i: srcs/ft_ping.c.i
+
+.PHONY : srcs/ft_ping.i
+
+# target to preprocess a source file
+srcs/ft_ping.c.i:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/ft_ping.c.i
+.PHONY : srcs/ft_ping.c.i
+
+srcs/ft_ping.s: srcs/ft_ping.c.s
+
+.PHONY : srcs/ft_ping.s
+
+# target to generate assembly for a file
+srcs/ft_ping.c.s:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/ft_ping.c.s
+.PHONY : srcs/ft_ping.c.s
+
+srcs/rtt_utility.o: srcs/rtt_utility.c.o
+
+.PHONY : srcs/rtt_utility.o
+
+# target to build an object file
+srcs/rtt_utility.c.o:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/rtt_utility.c.o
+.PHONY : srcs/rtt_utility.c.o
+
+srcs/rtt_utility.i: srcs/rtt_utility.c.i
+
+.PHONY : srcs/rtt_utility.i
+
+# target to preprocess a source file
+srcs/rtt_utility.c.i:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/rtt_utility.c.i
+.PHONY : srcs/rtt_utility.c.i
+
+srcs/rtt_utility.s: srcs/rtt_utility.c.s
+
+.PHONY : srcs/rtt_utility.s
+
+# target to generate assembly for a file
+srcs/rtt_utility.c.s:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/rtt_utility.c.s
+.PHONY : srcs/rtt_utility.c.s
 
 # Help Target
 help:
@@ -159,9 +213,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... ping"
-	@echo "... ft_ping.o"
-	@echo "... ft_ping.i"
-	@echo "... ft_ping.s"
+	@echo "... srcs/dns_utility.o"
+	@echo "... srcs/dns_utility.i"
+	@echo "... srcs/dns_utility.s"
+	@echo "... srcs/ft_ping.o"
+	@echo "... srcs/ft_ping.i"
+	@echo "... srcs/ft_ping.s"
+	@echo "... srcs/rtt_utility.o"
+	@echo "... srcs/rtt_utility.i"
+	@echo "... srcs/rtt_utility.s"
 .PHONY : help
 
 

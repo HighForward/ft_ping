@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/ping.dir/ft_ping.c.o"
+  "CMakeFiles/ping.dir/srcs/dns_utility.c.o"
+  "CMakeFiles/ping.dir/srcs/ft_ping.c.o"
+  "CMakeFiles/ping.dir/srcs/rtt_utility.c.o"
   "ping"
   "ping.pdb"
 )

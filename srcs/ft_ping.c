@@ -1,23 +1,5 @@
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <netdb.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-#include <netinet/ip_icmp.h>
-#include <errno.h>
-#include <signal.h>
-#include <sys/time.h>
-#include "ft_ping.h"
+#include "../includes/ft_ping.h"
 
-#include <netinet/in.h>
-#include <arpa/inet.h>
-
-#define PING_PACKET_SIZE 64
-int errno;
 int STOP = 0;
 
 typedef struct ICMP_pckt
@@ -97,6 +79,7 @@ struct sockaddr_in resolve_dns(char *target_host, char **ip)
 {
     struct hostent *host_entity;
     struct sockaddr_in addr_host;
+    struct sockaddr_storage addr;
     bzero(&addr_host, sizeof(struct sockaddr_in));
 
     if ((host_entity = gethostbyname(target_host)) == NULL)
@@ -111,6 +94,10 @@ struct sockaddr_in resolve_dns(char *target_host, char **ip)
     addr_host.sin_family = host_entity->h_addrtype;
     addr_host.sin_port = htons (0);
     addr_host.sin_addr.s_addr  = *(long*)host_entity->h_addr;
+
+
+    fqdn_lookup(target_host);
+
     return (addr_host);
 }
 
@@ -140,8 +127,6 @@ int main(int argc, char **argv)
     signal(SIGINT, intHandler);
 
     printf("PING %s (%s) %d(%d) bytes of data\n", dns_target, ip, 0, 0);
-
-    float ms_exit = 0;
 
     gettimeofday(&start, NULL);
     while (!STOP)
