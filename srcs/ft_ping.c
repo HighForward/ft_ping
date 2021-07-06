@@ -127,7 +127,7 @@ int main(int argc, char **argv)
 
     signal(SIGINT, intHandler);
 
-    printf("PING %s (%s) %d(%d) bytes of data\n", dns_target, ip, 0, 0);
+    printf("PING %s (%s) %lu(%lu) bytes of data\n", dns_target, ip, sizeof(ICMP_pckt), sizeof(ICMP_pckt) + sizeof(struct ip) + 8);
 
     gettimeofday(&start, NULL);
 
@@ -162,5 +162,8 @@ int main(int argc, char **argv)
 
     gettimeofday(&time_elapsed, NULL);
     printf("--- %s ping statistics ---\n", dns_target);
-    printf("%d packets transmitted, %d received, %.1f%% packets lost, time %ld\n", nb_pckt_send, nb_pckt_recv, get_average_of(nb_pckt_send, nb_pckt_recv), (time_elapsed.tv_usec - start.tv_usec) / 1000);
+
+    float average_loss = get_average_of(nb_pckt_send, nb_pckt_recv);
+    int type = is_integer(average_loss);
+    printf("%d packets transmitted, %d received, %.*f%% packets lost, time %ld\n", nb_pckt_send, nb_pckt_recv, (type == 0 ? 4 : 0), average_loss, (time_elapsed.tv_usec - start.tv_usec) / 1000);
 }

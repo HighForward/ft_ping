@@ -18,11 +18,13 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-#define PING_PACKET_SIZE 64
+#define PING_PACKET_SIZE 56
 
 int errno;
 
 void fqdn_lookup(char *target_host);
 float get_average_of(float a, float b);
+int is_integer(double N);
+
 
 #endif
