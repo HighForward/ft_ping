@@ -22,7 +22,17 @@
 
 int errno;
 
-void fqdn_lookup(char *target_host);
+typedef struct ICMP_pckt
+{
+    struct icmphdr hdr;
+    char msg[PING_PACKET_SIZE - sizeof(struct icmphdr)];
+} ICMP_pckt;
+
+
+void fill_icmp_packet(ICMP_pckt *ping_pkt);
+unsigned short checksum(void *b, int len);
+
+struct sockaddr_in resolve_dns(char *target_host, char **ip);
 float get_average_of(float a, float b);
 int is_integer(double N);
 
