@@ -44,9 +44,12 @@ int main(int argc, char **argv)
     signal(SIGINT, intHandler);
 
     if (create_socket(&sockfd) < 0)
-        return (-1);
+        return (1);
 
-    addr_host = resolve_dns(dns_target, &ip);
+    if (resolve_dns(dns_target, &addr_host, &ip))
+        return (1);
+
+    printf("PING %s (%s) %lu(%lu) bytes of data\n", dns_target, ip, sizeof(ICMP_pckt), sizeof(ICMP_pckt) + sizeof(struct ip));
 
     t_stats stats;
     ICMP_pckt *tmp;
@@ -55,7 +58,6 @@ int main(int argc, char **argv)
     bzero(&stats, sizeof(t_stats));
     stats.r_addr_len = sizeof(stats.r_addr);
 
-    printf("PING %s (%s) %lu(%lu) bytes of data\n", dns_target, ip, sizeof(ICMP_pckt), sizeof(ICMP_pckt) + sizeof(struct ip));
     unsigned char *pck_reply = (unsigned char *) malloc(sizeof(struct ip) + sizeof(ICMP_pckt));
 
     gettimeofday(&stats.start, NULL);

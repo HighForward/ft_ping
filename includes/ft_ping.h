@@ -43,7 +43,7 @@ typedef struct s_stats
 void fill_icmp_packet(ICMP_pckt *ping_pkt);
 unsigned short checksum(void *b, int len);
 
-struct sockaddr_in resolve_dns(char *target_host, char **ip);
+int resolve_dns(char *target_host, struct sockaddr_in *addr_host,char **ip);
 float get_average_of(float a, float b);
 int is_integer(double N);
 
