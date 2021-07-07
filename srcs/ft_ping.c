@@ -38,64 +38,58 @@ int main(int argc, char **argv)
 {
     char *dns_target = argv[1];
     struct sockaddr_in addr_host;
-    ICMP_pckt pckt;
-    ICMP_pckt *tmp;
-    unsigned char *pktrecv;
     char *ip;
     int sockfd;
-    int nb_pckt_send = 0;
-    int nb_pckt_recv = 0;
 
     signal(SIGINT, intHandler);
 
     if (create_socket(&sockfd) < 0)
         return (-1);
 
-    ip = malloc(sizeof(char) * INET_ADDRSTRLEN + 5);
-    pktrecv = (unsigned char *) malloc (sizeof(struct ip) + sizeof(ICMP_pckt));
     addr_host = resolve_dns(dns_target, &ip);
 
-    struct sockaddr_in r_addr;
-    unsigned int addr_len = sizeof(r_addr);
-    int reicvd_pkt;
-    struct timeval start;
-    struct timeval time_elapsed;
+    t_stats stats;
+    ICMP_pckt *tmp;
+    ICMP_pckt pckt;
+
+    bzero(&stats, sizeof(t_stats));
+    stats.r_addr_len = sizeof(stats.r_addr);
 
     printf("PING %s (%s) %lu(%lu) bytes of data\n", dns_target, ip, sizeof(ICMP_pckt), sizeof(ICMP_pckt) + sizeof(struct ip));
+    unsigned char *pck_reply = (unsigned char *) malloc(sizeof(struct ip) + sizeof(ICMP_pckt));
 
-    gettimeofday(&start, NULL);
+    gettimeofday(&stats.start, NULL);
     while (!STOP)
     {
-        reicvd_pkt = 0;
-        gettimeofday(&start, NULL);
+        stats.pkt_replied = 0;
+        gettimeofday(&stats.start, NULL);
         fill_icmp_packet(&pckt);
 
         if (sendto(sockfd, &pckt, sizeof(pckt), 0, (struct sockaddr *) &addr_host, sizeof(struct sockaddr)) < 0)
             return str_error(strerror(errno), 1);
 
-        nb_pckt_send++;
-        if (recvfrom(sockfd, pktrecv, sizeof(struct ip) + sizeof(ICMP_pckt), 0, (struct sockaddr *) &r_addr, &addr_len) >= 0)
+        stats.pck_send++;
+
+        if (recvfrom(sockfd, pck_reply, sizeof(struct ip) + sizeof(ICMP_pckt), 0, (struct sockaddr *) &stats.r_addr, &stats.r_addr_len) >= 0)
         {
-            nb_pckt_recv++;
-            reicvd_pkt = 1;
+            stats.pck_recv++;
+            stats.pkt_replied = 1;
         }
 
-        if (!STOP && reicvd_pkt)
+        if (!STOP && stats.pkt_replied)
         {
-            gettimeofday(&time_elapsed, NULL);
-            tmp = (ICMP_pckt *) (pktrecv + sizeof(struct ip));
+            gettimeofday(&stats.time_elapsed, NULL);
+            tmp = (ICMP_pckt *) (pck_reply + sizeof(struct ip));
 
-            printf("%lu bytes from %s (%s): icmp_seq=%d ttl=%d time=%.1f ms\n", sizeof(ICMP_pckt) , dns_target,
-                   ip, tmp->hdr.un.echo.sequence, 64,
-                   (float) (((float) time_elapsed.tv_usec - (float) start.tv_usec) / 1000));
+            printf("%lu bytes from %s (%s): icmp_seq=%d ttl=%d time=%.1f ms\n", sizeof(ICMP_pckt) , dns_target, ip, tmp->hdr.un.echo.sequence, 64, (float) (((float) stats.time_elapsed.tv_usec - (float) stats.start.tv_usec) / 1000));
             usleep(1000000);
         }
     }
 
-    gettimeofday(&time_elapsed, NULL);
+    gettimeofday(&stats.time_elapsed, NULL);
     printf("--- %s ping statistics ---\n", dns_target);
 
-    float average_loss = get_average_of(nb_pckt_send, nb_pckt_recv);
+    float average_loss = get_average_of(stats.pck_send, stats.pck_recv);
     int type = is_integer(average_loss);
-    printf("%d packets transmitted, %d received, %.*f%% packets lost, time %ld\n", nb_pckt_send, nb_pckt_recv, (type == 0 ? 4 : 0), average_loss, (time_elapsed.tv_usec - start.tv_usec) / 1000);
+    printf("%d packets transmitted, %d received, %.*f%% packets lost, time %ld\n", stats.pck_send, stats.pck_recv, (type == 0 ? 4 : 0), average_loss, (stats.time_elapsed.tv_usec - stats.start.tv_usec) / 1000);
 }

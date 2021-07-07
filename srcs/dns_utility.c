@@ -16,10 +16,15 @@ struct sockaddr_in resolve_dns(char *target_host, char **ip)
     struct addrinfo *result;
 
     if (getaddrinfo(target_host, NULL, &hints, &result) != 0)
+    {
         printf("getaddrinfo failed: %s\n", strerror(errno));
-
+        exit(1);
+    }
     struct sockaddr_in *ipv4 = (struct sockaddr_in *)result->ai_addr;
     void *addr = &(ipv4->sin_addr);
+
+    (*ip) = malloc(sizeof(char) * INET_ADDRSTRLEN + 4);
+    bzero((*ip), INET_ADDRSTRLEN + 4);
     inet_ntop(result->ai_family, addr, (*ip), sizeof(char) * INET_ADDRSTRLEN + 5);
 
 //    while (result)

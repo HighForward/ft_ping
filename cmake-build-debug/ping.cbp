@@ -82,6 +82,9 @@
 		<Unit filename="/mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/srcs/ft_ping.c">
 			<Option target="ping"/>
 		</Unit>
+		<Unit filename="/mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/srcs/icmp_packet.c">
+			<Option target="ping"/>
+		</Unit>
 		<Unit filename="/mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/srcs/rtt_utility.c">
 			<Option target="ping"/>
 		</Unit>

@@ -177,6 +177,33 @@ srcs/ft_ping.c.s:
 	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/ft_ping.c.s
 .PHONY : srcs/ft_ping.c.s
 
+srcs/icmp_packet.o: srcs/icmp_packet.c.o
+
+.PHONY : srcs/icmp_packet.o
+
+# target to build an object file
+srcs/icmp_packet.c.o:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/icmp_packet.c.o
+.PHONY : srcs/icmp_packet.c.o
+
+srcs/icmp_packet.i: srcs/icmp_packet.c.i
+
+.PHONY : srcs/icmp_packet.i
+
+# target to preprocess a source file
+srcs/icmp_packet.c.i:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/icmp_packet.c.i
+.PHONY : srcs/icmp_packet.c.i
+
+srcs/icmp_packet.s: srcs/icmp_packet.c.s
+
+.PHONY : srcs/icmp_packet.s
+
+# target to generate assembly for a file
+srcs/icmp_packet.c.s:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/icmp_packet.c.s
+.PHONY : srcs/icmp_packet.c.s
+
 srcs/rtt_utility.o: srcs/rtt_utility.c.o
 
 .PHONY : srcs/rtt_utility.o
@@ -246,6 +273,9 @@ help:
 	@echo "... srcs/ft_ping.o"
 	@echo "... srcs/ft_ping.i"
 	@echo "... srcs/ft_ping.s"
+	@echo "... srcs/icmp_packet.o"
+	@echo "... srcs/icmp_packet.i"
+	@echo "... srcs/icmp_packet.s"
 	@echo "... srcs/rtt_utility.o"
 	@echo "... srcs/rtt_utility.i"
 	@echo "... srcs/rtt_utility.s"

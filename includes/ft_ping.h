@@ -28,6 +28,17 @@ typedef struct ICMP_pckt
     char msg[PING_PACKET_SIZE - sizeof(struct icmphdr)];
 } ICMP_pckt;
 
+typedef struct s_stats
+{
+    int pck_send;
+    int pck_recv;
+    struct timeval start;
+    struct timeval time_elapsed;
+    int pkt_replied;
+    struct sockaddr_in r_addr;
+    unsigned int r_addr_len;
+} t_stats;
+
 
 void fill_icmp_packet(ICMP_pckt *ping_pkt);
 unsigned short checksum(void *b, int len);
