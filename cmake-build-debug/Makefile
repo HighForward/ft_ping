@@ -231,6 +231,33 @@ srcs/loop.c.s:
 	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/loop.c.s
 .PHONY : srcs/loop.c.s
 
+srcs/output.o: srcs/output.c.o
+
+.PHONY : srcs/output.o
+
+# target to build an object file
+srcs/output.c.o:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/output.c.o
+.PHONY : srcs/output.c.o
+
+srcs/output.i: srcs/output.c.i
+
+.PHONY : srcs/output.i
+
+# target to preprocess a source file
+srcs/output.c.i:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/output.c.i
+.PHONY : srcs/output.c.i
+
+srcs/output.s: srcs/output.c.s
+
+.PHONY : srcs/output.s
+
+# target to generate assembly for a file
+srcs/output.c.s:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/output.c.s
+.PHONY : srcs/output.c.s
+
 srcs/rtt_utility.o: srcs/rtt_utility.c.o
 
 .PHONY : srcs/rtt_utility.o
@@ -306,6 +333,9 @@ help:
 	@echo "... srcs/loop.o"
 	@echo "... srcs/loop.i"
 	@echo "... srcs/loop.s"
+	@echo "... srcs/output.o"
+	@echo "... srcs/output.i"
+	@echo "... srcs/output.s"
 	@echo "... srcs/rtt_utility.o"
 	@echo "... srcs/rtt_utility.i"
 	@echo "... srcs/rtt_utility.s"

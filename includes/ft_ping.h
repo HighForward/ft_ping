@@ -23,10 +23,12 @@
 int errno;
 int STOP;
 
+
 typedef struct ICMP_pckt
 {
     struct icmphdr hdr;
     char msg[PING_PACKET_SIZE - sizeof(struct icmphdr)];
+
 } ICMP_pckt;
 
 typedef struct s_rtt
@@ -35,6 +37,7 @@ typedef struct s_rtt
     float avg;
     float max;
     float mdev;
+    int hops;
 } t_rtt;
 
 typedef struct s_stats
@@ -58,7 +61,8 @@ int is_integer(double N);
 int ping_loop(int sockfd, char *target_host, struct sockaddr_in *addr_host, char *ip, t_stats *stats);
 int str_error(char *str, int code);
 int send_data(int sockfd, ICMP_pckt *pckt, t_stats *stats, struct sockaddr_in *addr_host);
-int recv_data(int sockfd, unsigned char *buffer, t_stats *stats, struct sockaddr_in *addr_host);
+int recv_data(int sockfd, unsigned char *buffer, t_stats *stats, struct sockaddr_in *addr_host, struct sockaddr_in *hit_addr);
 void update_rtt_average(t_stats *stats);
+void print_on_hops(ICMP_pckt *pckt, t_stats *stats, char *target_host, unsigned char *reply, struct sockaddr_in hit_addr);
 
 #endif

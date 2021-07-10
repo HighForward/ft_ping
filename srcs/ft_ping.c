@@ -13,7 +13,7 @@ int str_error(char *str, int code)
 
 int create_socket(int *sockfd)
 {
-    int ttl = 64;
+    int ttl = 128;
     struct timeval tv_out;
 
     tv_out.tv_sec = 1;
@@ -23,7 +23,6 @@ int create_socket(int *sockfd)
 
     if ((*sockfd) < 0)
         return str_error("Socket file descriptor not received!", -1);
-
     if (setsockopt((*sockfd), SOL_IP, IP_TTL, &ttl, sizeof(ttl)) != 0)
         return str_error("Setting socket options to TTL failed!", -1);
     if (setsockopt((*sockfd), SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv_out, sizeof(tv_out)) != 0)
@@ -50,7 +49,6 @@ int main(int argc, char **argv)
 
     printf("PING %s (%s) %lu(%lu) bytes of data.\n", dns_target, ip, sizeof(ICMP_pckt), sizeof(ICMP_pckt) + sizeof(struct ip));
 
-
     if (ping_loop(sockfd, dns_target, &addr_host, ip, &stats))
         return (1);
 
@@ -59,6 +57,7 @@ int main(int argc, char **argv)
     float average_loss = get_average_of(stats.pck_send, stats.pck_recv);
     int type = is_integer(average_loss);
 
-    printf("%d packets transmitted, %d received, %.*f%% packets lost, time %ld\n", stats.pck_send, stats.pck_recv, (type == 0 ? 4 : 0), average_loss, (stats.time_elapsed.tv_usec - stats.start.tv_usec) / 1000);
-    printf("rtt min/avg/max/mdev = %.3f/%.3f/%.3f/%.3f ms\n", stats.rtt.min, stats.rtt.avg, stats.rtt.max, stats.rtt.mdev);
+    printf("%d packets transmitted, %d received, %.*f%% packets lost, time %ldms\n", stats.pck_send, stats.pck_recv, (type == 0 ? 4 : 0), average_loss, (stats.time_elapsed.tv_usec - stats.start.tv_usec) / 1000);
+    if (stats.rtt.hops > 0)
+        printf("rtt min/avg/max/mdev = %.3f/%.3f/%.3f/%.3f ms\n", stats.rtt.min, stats.rtt.avg, stats.rtt.max, stats.rtt.mdev);
 }
