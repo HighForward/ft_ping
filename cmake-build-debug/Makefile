@@ -204,6 +204,33 @@ srcs/icmp_packet.c.s:
 	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/icmp_packet.c.s
 .PHONY : srcs/icmp_packet.c.s
 
+srcs/loop.o: srcs/loop.c.o
+
+.PHONY : srcs/loop.o
+
+# target to build an object file
+srcs/loop.c.o:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/loop.c.o
+.PHONY : srcs/loop.c.o
+
+srcs/loop.i: srcs/loop.c.i
+
+.PHONY : srcs/loop.i
+
+# target to preprocess a source file
+srcs/loop.c.i:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/loop.c.i
+.PHONY : srcs/loop.c.i
+
+srcs/loop.s: srcs/loop.c.s
+
+.PHONY : srcs/loop.s
+
+# target to generate assembly for a file
+srcs/loop.c.s:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/loop.c.s
+.PHONY : srcs/loop.c.s
+
 srcs/rtt_utility.o: srcs/rtt_utility.c.o
 
 .PHONY : srcs/rtt_utility.o
@@ -276,6 +303,9 @@ help:
 	@echo "... srcs/icmp_packet.o"
 	@echo "... srcs/icmp_packet.i"
 	@echo "... srcs/icmp_packet.s"
+	@echo "... srcs/loop.o"
+	@echo "... srcs/loop.i"
+	@echo "... srcs/loop.s"
 	@echo "... srcs/rtt_utility.o"
 	@echo "... srcs/rtt_utility.i"
 	@echo "... srcs/rtt_utility.s"

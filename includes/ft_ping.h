@@ -21,6 +21,7 @@
 #define PING_PACKET_SIZE 56
 
 int errno;
+int STOP;
 
 typedef struct ICMP_pckt
 {
@@ -30,13 +31,12 @@ typedef struct ICMP_pckt
 
 typedef struct s_stats
 {
+    size_t size_recv;
     int pck_send;
     int pck_recv;
     struct timeval start;
     struct timeval time_elapsed;
     int pkt_replied;
-    struct sockaddr_in r_addr;
-    unsigned int r_addr_len;
 } t_stats;
 
 
@@ -46,6 +46,9 @@ unsigned short checksum(void *b, int len);
 int resolve_dns(char *target_host, struct sockaddr_in *addr_host,char **ip);
 float get_average_of(float a, float b);
 int is_integer(double N);
-
+int ping_loop(int sockfd, char *target_host, struct sockaddr_in *addr_host, char *ip, t_stats *stats);
+int str_error(char *str, int code);
+int send_data(int sockfd, ICMP_pckt *pckt, t_stats *stats, struct sockaddr_in *addr_host);
+int recv_data(int sockfd, unsigned char *buffer, t_stats *stats, struct sockaddr_in *addr_host);
 
 #endif

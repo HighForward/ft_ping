@@ -1,4 +1,4 @@
-SRCS		=	./srcs/ft_ping.c ./srcs/rtt_utility.c ./srcs/dns_utility.c ./srcs/statistics.c ./srcs/icmp_packet.c
+SRCS		=	./srcs/ft_ping.c ./srcs/rtt_utility.c ./srcs/dns_utility.c ./srcs/statistics.c ./srcs/icmp_packet.c ./srcs/loop.c
 
 NAME		=	ft_ping
 
