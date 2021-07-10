@@ -23,7 +23,9 @@ int ping_loop(int sockfd, char *target_host, struct sockaddr_in *addr_host, char
         if (!STOP && stats->pkt_replied)
         {
             gettimeofday(&stats->time_elapsed, NULL);
+            update_rtt_average(stats);
             tmp = (ICMP_pckt *) (pck_reply + sizeof(struct ip));
+//            printf("%d %d %d %d\n", tmp->hdr.un.echo.id, tmp->hdr.un.echo.sequence, tmp->hdr.code, tmp->hdr.type);
             printf("%lu bytes from %s (%s): icmp_seq=%d ttl=%d time=%.1f ms\n", stats->size_recv - (sizeof(struct ip)) , target_host, ip, tmp->hdr.un.echo.sequence, 64, (float) (((float) stats->time_elapsed.tv_usec - (float) stats->start.tv_usec) / 1000));
             usleep(1000000);
         }

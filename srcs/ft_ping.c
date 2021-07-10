@@ -48,7 +48,8 @@ int main(int argc, char **argv)
     if (resolve_dns(dns_target, &addr_host, &ip))
         return (1);
 
-    printf("PING %s (%s) %lu(%lu) bytes of data\n", dns_target, ip, sizeof(ICMP_pckt), sizeof(ICMP_pckt) + sizeof(struct ip));
+    printf("PING %s (%s) %lu(%lu) bytes of data.\n", dns_target, ip, sizeof(ICMP_pckt), sizeof(ICMP_pckt) + sizeof(struct ip));
+
 
     if (ping_loop(sockfd, dns_target, &addr_host, ip, &stats))
         return (1);
@@ -59,5 +60,5 @@ int main(int argc, char **argv)
     int type = is_integer(average_loss);
 
     printf("%d packets transmitted, %d received, %.*f%% packets lost, time %ld\n", stats.pck_send, stats.pck_recv, (type == 0 ? 4 : 0), average_loss, (stats.time_elapsed.tv_usec - stats.start.tv_usec) / 1000);
-    printf("rtt min/avg/max/mdev = %.3f/%.3f/%.3f/%.3f ms\n", 0, 0, 0, 0);
+    printf("rtt min/avg/max/mdev = %.3f/%.3f/%.3f/%.3f ms\n", stats.rtt.min, stats.rtt.avg, stats.rtt.max, stats.rtt.mdev);
 }

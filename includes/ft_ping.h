@@ -29,14 +29,23 @@ typedef struct ICMP_pckt
     char msg[PING_PACKET_SIZE - sizeof(struct icmphdr)];
 } ICMP_pckt;
 
+typedef struct s_rtt
+{
+    float min;
+    float avg;
+    float max;
+    float mdev;
+} t_rtt;
+
 typedef struct s_stats
 {
-    size_t size_recv;
+    int size_recv;
     int pck_send;
     int pck_recv;
     struct timeval start;
     struct timeval time_elapsed;
     int pkt_replied;
+    t_rtt rtt;
 } t_stats;
 
 
@@ -50,5 +59,6 @@ int ping_loop(int sockfd, char *target_host, struct sockaddr_in *addr_host, char
 int str_error(char *str, int code);
 int send_data(int sockfd, ICMP_pckt *pckt, t_stats *stats, struct sockaddr_in *addr_host);
 int recv_data(int sockfd, unsigned char *buffer, t_stats *stats, struct sockaddr_in *addr_host);
+void update_rtt_average(t_stats *stats);
 
 #endif
