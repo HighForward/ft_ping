@@ -35,22 +35,21 @@ void fill_icmp_packet(ICMP_pckt *ping_pkt)
     (*ping_pkt).hdr.checksum = checksum(&(*ping_pkt), sizeof((*ping_pkt)));
 }
 
-int send_data(int sockfd, ICMP_pckt *pckt, t_stats *stats, struct sockaddr_in *addr_host)
+int send_data(t_stats *stats, t_ping_utility *ping_base)
 {
     stats->pkt_replied = 0;
-    fill_icmp_packet(pckt);
+    fill_icmp_packet(&ping_base->send_pckt);
 
-    if (sendto(sockfd, pckt, sizeof(*pckt), 0, (struct sockaddr *)addr_host, sizeof(struct sockaddr)) < 0)
+    if (sendto(ping_base->sockfd, &ping_base->send_pckt, sizeof(ICMP_pckt), 0, (struct sockaddr *)&ping_base->addr_host, sizeof(struct sockaddr)) < 0)
     {
         printf("send error: ");
         return str_error(strerror(errno), 1);
     }
-
     stats->pck_send++;
     return (0);
 }
 
-int recv_data(int sockfd, unsigned char *buffer, t_stats *stats, struct sockaddr_in *addr_host, struct sockaddr_in *hit_addr)
+int recv_data(unsigned char *buffer, t_stats *stats, t_ping_utility *ping_base)
 {
     struct msghdr msg;
     struct iovec   iov;
@@ -58,7 +57,7 @@ int recv_data(int sockfd, unsigned char *buffer, t_stats *stats, struct sockaddr
     bzero(&iov, sizeof(struct iovec));
 
     struct sockaddr_in tmp;
-    memcpy(&tmp, addr_host, sizeof(struct sockaddr_in));
+    memcpy(&tmp, &ping_base->addr_host, sizeof(struct sockaddr_in));
 
     iov.iov_base = buffer;
     iov.iov_len = sizeof(ICMP_pckt) + sizeof(struct ip) + 50;
@@ -70,13 +69,11 @@ int recv_data(int sockfd, unsigned char *buffer, t_stats *stats, struct sockaddr
     msg.msg_controllen = 0;
     msg.msg_flags = 0;
 
-    //todo on return of recvmsg, get address host on ttl exceeded for better output
-
-    if ((stats->size_recv = recvmsg(sockfd, &msg, 0)) >= 0)
+    if ((stats->size_recv = recvmsg(ping_base->sockfd, &msg, 0)) >= 0)
     {
         stats->pck_recv++;
         stats->pkt_replied = 1;
-        (*hit_addr) = tmp;
+        ping_base->addr_hit = tmp;
     }
     return (0);
 }

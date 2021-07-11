@@ -31,6 +31,17 @@ typedef struct ICMP_pckt
 
 } ICMP_pckt;
 
+typedef struct s_ping
+{
+    struct ICMP_pckt send_pckt;
+    char ip[INET_ADDRSTRLEN];
+    int sockfd;
+    char *dns_target;
+    struct sockaddr_in addr_host;
+    struct sockaddr_in addr_hit;
+
+} t_ping_utility;
+
 typedef struct s_rtt
 {
     float min;
@@ -55,14 +66,15 @@ typedef struct s_stats
 void fill_icmp_packet(ICMP_pckt *ping_pkt);
 unsigned short checksum(void *b, int len);
 
-int resolve_dns(char *target_host, struct sockaddr_in *addr_host,char **ip);
+int resolve_dns(t_ping_utility *ping_base);
 float get_average_of(float a, float b);
 int is_integer(double N);
-int ping_loop(int sockfd, char *target_host, struct sockaddr_in *addr_host, char *ip, t_stats *stats);
+int ping_loop(t_ping_utility *ping_base, t_stats *stats);
 int str_error(char *str, int code);
-int send_data(int sockfd, ICMP_pckt *pckt, t_stats *stats, struct sockaddr_in *addr_host);
-int recv_data(int sockfd, unsigned char *buffer, t_stats *stats, struct sockaddr_in *addr_host, struct sockaddr_in *hit_addr);
+int send_data(t_stats *stats, t_ping_utility *ping_base);
+int recv_data(unsigned char *buffer, t_stats *stats, t_ping_utility *ping_base);
 void update_rtt_average(t_stats *stats);
-void print_on_hops(ICMP_pckt *pckt, t_stats *stats, char *target_host, unsigned char *reply, struct sockaddr_in hit_addr);
+void print_on_hops(ICMP_pckt *icmp_packet, struct ip ip_packet, t_stats *stats, t_ping_utility *ping_base);
+void print_statistics(t_stats *stats, t_ping_utility *ping_base);
 
 #endif

@@ -1,6 +1,7 @@
 #include "../includes/ft_ping.h"
 
-void intHandler(int sig) {
+void intHandler(int sig)
+{
     STOP = 1;
     write(1, "\n", 1);
 }
@@ -33,31 +34,25 @@ int create_socket(int *sockfd)
 
 int main(int argc, char **argv)
 {
-    char *dns_target = argv[1];
-    struct sockaddr_in addr_host;
     t_stats stats;
-    char *ip;
-    int sockfd;
+    t_ping_utility ping_base;
+    ping_base.dns_target = argv[1];
 
     signal(SIGINT, intHandler);
 
-    if (create_socket(&sockfd) < 0)
+    if (create_socket(&ping_base.sockfd) < 0)
         return (1);
 
-    if (resolve_dns(dns_target, &addr_host, &ip))
+    if (resolve_dns(&ping_base))
         return (1);
 
-    printf("PING %s (%s) %lu(%lu) bytes of data.\n", dns_target, ip, sizeof(ICMP_pckt), sizeof(ICMP_pckt) + sizeof(struct ip));
+    printf("PING %s (%s) %lu(%lu) bytes of data.\n", ping_base.dns_target, ping_base.ip, sizeof(ICMP_pckt), sizeof(ICMP_pckt) + sizeof(struct ip));
 
-    if (ping_loop(sockfd, dns_target, &addr_host, ip, &stats))
+    if (ping_loop(&ping_base, &stats))
         return (1);
 
-    printf("--- %s ping statistics ---\n", dns_target);
+    print_statistics(&stats, &ping_base);
 
-    float average_loss = get_average_of(stats.pck_send, stats.pck_recv);
-    int type = is_integer(average_loss);
+    close(ping_base.sockfd);
 
-    printf("%d packets transmitted, %d received, %.*f%% packets lost, time %ldms\n", stats.pck_send, stats.pck_recv, (type == 0 ? 4 : 0), average_loss, (stats.time_elapsed.tv_usec - stats.start.tv_usec) / 1000);
-    if (stats.rtt.hops > 0)
-        printf("rtt min/avg/max/mdev = %.3f/%.3f/%.3f/%.3f ms\n", stats.rtt.min, stats.rtt.avg, stats.rtt.max, stats.rtt.mdev);
 }
