@@ -36,9 +36,16 @@ int main(int argc, char **argv)
 {
     t_stats stats;
     t_ping_utility ping_base;
+    bzero(&ping_base, sizeof(ping_base));
     ping_base.dns_target = argv[1];
 
     signal(SIGINT, intHandler);
+
+    if (parse_args(argc, argv + 1, &ping_base.flag))
+        return (1);
+
+    if (toggle_flags(ping_base.flag))
+        return (1);
 
     if (create_socket(&ping_base.sockfd) < 0)
         return (1);

@@ -12,5 +12,9 @@ void print_on_hops(ICMP_pckt *icmp_packet, struct ip ip_packet, t_stats *stats, 
     {
         if (icmp_packet->hdr.type == 11)
             printf("From %s icmp_seq=%d %s\n", hit_ip, stats->pck_send, "Time to live exceeded");
+        else
+        {
+            printf("From %s icmp_seq=%d %s\n", hit_ip, stats->pck_send, "Unhandled error");
+        }
     }
 }

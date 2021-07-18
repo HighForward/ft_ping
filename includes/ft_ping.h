@@ -23,6 +23,21 @@
 int errno;
 int STOP;
 
+enum V_Flags
+{
+    H_OPTION = 1 << 1, // binary 0001
+    V_OPTION = 1 << 2, // binary 0010
+//    NOTHING = 1 << 2, // binary 0100
+//    NOTHING2 = 1 << 3  // binary 1000
+};
+
+enum N_Flags
+{
+    H_BIT = 1, // binary 0001
+    V_BIT = 2, // binary 0010
+//    NOTHING = 1 << 2, // binary 0100
+//    NOTHING2 = 1 << 3  // binary 1000
+};
 
 typedef struct ICMP_pckt
 {
@@ -39,6 +54,7 @@ typedef struct s_ping
     char *dns_target;
     struct sockaddr_in addr_host;
     struct sockaddr_in addr_hit;
+    int flag;
 
 } t_ping_utility;
 
@@ -66,6 +82,7 @@ typedef struct s_stats
 void fill_icmp_packet(ICMP_pckt *ping_pkt);
 unsigned short checksum(void *b, int len);
 
+int parse_args(int argc, char **argv, int *flag);
 int resolve_dns(t_ping_utility *ping_base);
 float get_average_of(float a, float b);
 int is_integer(double N);
@@ -76,5 +93,6 @@ int recv_data(unsigned char *buffer, t_stats *stats, t_ping_utility *ping_base);
 void update_rtt_average(t_stats *stats);
 void print_on_hops(ICMP_pckt *icmp_packet, struct ip ip_packet, t_stats *stats, t_ping_utility *ping_base);
 void print_statistics(t_stats *stats, t_ping_utility *ping_base);
+int toggle_flags(int flag);
 
 #endif

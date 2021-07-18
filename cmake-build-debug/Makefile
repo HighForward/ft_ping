@@ -123,6 +123,33 @@ ping/fast:
 	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/build
 .PHONY : ping/fast
 
+srcs/args.o: srcs/args.c.o
+
+.PHONY : srcs/args.o
+
+# target to build an object file
+srcs/args.c.o:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/args.c.o
+.PHONY : srcs/args.c.o
+
+srcs/args.i: srcs/args.c.i
+
+.PHONY : srcs/args.i
+
+# target to preprocess a source file
+srcs/args.c.i:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/args.c.i
+.PHONY : srcs/args.c.i
+
+srcs/args.s: srcs/args.c.s
+
+.PHONY : srcs/args.s
+
+# target to generate assembly for a file
+srcs/args.c.s:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/args.c.s
+.PHONY : srcs/args.c.s
+
 srcs/dns_utility.o: srcs/dns_utility.c.o
 
 .PHONY : srcs/dns_utility.o
@@ -149,6 +176,33 @@ srcs/dns_utility.s: srcs/dns_utility.c.s
 srcs/dns_utility.c.s:
 	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/dns_utility.c.s
 .PHONY : srcs/dns_utility.c.s
+
+srcs/flags.o: srcs/flags.c.o
+
+.PHONY : srcs/flags.o
+
+# target to build an object file
+srcs/flags.c.o:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/flags.c.o
+.PHONY : srcs/flags.c.o
+
+srcs/flags.i: srcs/flags.c.i
+
+.PHONY : srcs/flags.i
+
+# target to preprocess a source file
+srcs/flags.c.i:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/flags.c.i
+.PHONY : srcs/flags.c.i
+
+srcs/flags.s: srcs/flags.c.s
+
+.PHONY : srcs/flags.s
+
+# target to generate assembly for a file
+srcs/flags.c.s:
+	$(MAKE) -f CMakeFiles/ping.dir/build.make CMakeFiles/ping.dir/srcs/flags.c.s
+.PHONY : srcs/flags.c.s
 
 srcs/ft_ping.o: srcs/ft_ping.c.o
 
@@ -321,9 +375,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... ping"
+	@echo "... srcs/args.o"
+	@echo "... srcs/args.i"
+	@echo "... srcs/args.s"
 	@echo "... srcs/dns_utility.o"
 	@echo "... srcs/dns_utility.i"
 	@echo "... srcs/dns_utility.s"
+	@echo "... srcs/flags.o"
+	@echo "... srcs/flags.i"
+	@echo "... srcs/flags.s"
 	@echo "... srcs/ft_ping.o"
 	@echo "... srcs/ft_ping.i"
 	@echo "... srcs/ft_ping.s"

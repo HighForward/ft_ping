@@ -76,7 +76,13 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/srcs/args.c">
+			<Option target="ping"/>
+		</Unit>
 		<Unit filename="/mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/srcs/dns_utility.c">
+			<Option target="ping"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/srcs/flags.c">
 			<Option target="ping"/>
 		</Unit>
 		<Unit filename="/mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/srcs/ft_ping.c">
