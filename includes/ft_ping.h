@@ -46,6 +46,11 @@ typedef struct ICMP_pckt
 
 } ICMP_pckt;
 
+//typedef struct s_options
+//{
+//    int v_option;
+//} t_options;
+
 typedef struct s_ping
 {
     struct ICMP_pckt send_pckt;
@@ -72,6 +77,9 @@ typedef struct s_stats
     int size_recv;
     int pck_send;
     int pck_recv;
+    struct timeval begin_pgrm;
+    struct timeval latest_pckt;
+
     struct timeval start;
     struct timeval time_elapsed;
     int pkt_replied;
@@ -82,7 +90,7 @@ typedef struct s_stats
 void fill_icmp_packet(ICMP_pckt *ping_pkt);
 unsigned short checksum(void *b, int len);
 
-int parse_args(int argc, char **argv, int *flag);
+int parse_args(char **argv, char **dns_target, int *flag);
 int resolve_dns(t_ping_utility *ping_base);
 float get_average_of(float a, float b);
 int is_integer(double N);
@@ -94,5 +102,7 @@ void update_rtt_average(t_stats *stats);
 void print_on_hops(ICMP_pckt *icmp_packet, struct ip ip_packet, t_stats *stats, t_ping_utility *ping_base);
 void print_statistics(t_stats *stats, t_ping_utility *ping_base);
 int toggle_flags(int flag);
+
+void perform_h();
 
 #endif

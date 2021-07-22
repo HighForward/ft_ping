@@ -5,11 +5,13 @@ int ping_loop(t_ping_utility *ping_base, t_stats *stats)
     struct ICMP_pckt *tmp_icmp;
     struct ip tmp_ip;
     unsigned char pck_reply[sizeof(struct ip) + sizeof(struct ICMP_pckt)];
-    bzero(stats, sizeof(t_stats));
+    bzero(&(*stats), sizeof(t_stats));
     bzero(pck_reply, sizeof(pck_reply));
     bzero(&ping_base->send_pckt, sizeof(struct ICMP_pckt));
 
     gettimeofday(&stats->start, NULL);
+    gettimeofday(&stats->begin_pgrm, NULL);
+
     while (!STOP)
     {
         bzero(&ping_base->addr_hit, sizeof(ping_base->addr_hit));
@@ -30,9 +32,12 @@ int ping_loop(t_ping_utility *ping_base, t_stats *stats)
             memcpy(&tmp_ip, pck_reply, 20);
 
             print_on_hops(tmp_icmp, tmp_ip, stats, ping_base);
+
             usleep(1000000);
+            gettimeofday(&stats->latest_pckt, NULL);
         }
     }
     gettimeofday(&stats->time_elapsed, NULL);
+
     return (0);
 }
