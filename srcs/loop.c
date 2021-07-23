@@ -5,16 +5,16 @@ int ping_loop(t_ping_utility *ping_base, t_stats *stats)
     struct ICMP_pckt *tmp_icmp;
     struct ip tmp_ip;
     unsigned char pck_reply[sizeof(struct ip) + sizeof(struct ICMP_pckt)];
-    bzero(&(*stats), sizeof(t_stats));
-    bzero(pck_reply, sizeof(pck_reply));
-    bzero(&ping_base->send_pckt, sizeof(struct ICMP_pckt));
+    ft_bzero(&(*stats), sizeof(t_stats));
+    ft_bzero(pck_reply, sizeof(pck_reply));
+    ft_bzero(&ping_base->send_pckt, sizeof(struct ICMP_pckt));
 
     gettimeofday(&stats->start, NULL);
     gettimeofday(&stats->begin_pgrm, NULL);
 
     while (!STOP)
     {
-        bzero(&ping_base->addr_hit, sizeof(ping_base->addr_hit));
+        ft_bzero(&ping_base->addr_hit, sizeof(ping_base->addr_hit));
         gettimeofday(&stats->start, NULL);
 
         if (send_data(stats, ping_base))
@@ -33,11 +33,16 @@ int ping_loop(t_ping_utility *ping_base, t_stats *stats)
 
             print_on_hops(tmp_icmp, tmp_ip, stats, ping_base);
 
-            usleep(1000000);
             gettimeofday(&stats->latest_pckt, NULL);
+            usleep(1000000);
+        }
+        else if (!STOP && stats->size_recv < 0)
+        {
+            if ((ping_base->flag & (1 << V_BIT)) > 0)
+                printf("time out: no response found!\n");
         }
     }
     gettimeofday(&stats->time_elapsed, NULL);
-
+    gettimeofday(&stats->latest_pckt, NULL);
     return (0);
 }

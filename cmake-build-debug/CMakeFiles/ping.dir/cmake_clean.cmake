@@ -8,6 +8,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/ping.dir/srcs/output.c.o"
   "CMakeFiles/ping.dir/srcs/rtt_utility.c.o"
   "CMakeFiles/ping.dir/srcs/statistics.c.o"
+  "CMakeFiles/ping.dir/srcs/utils.c.o"
   "ping"
   "ping.pdb"
 )

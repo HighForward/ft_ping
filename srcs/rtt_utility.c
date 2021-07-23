@@ -23,7 +23,9 @@ float calculate_standard_variation(t_stats *stats, float now)
 
 void update_rtt_average(t_stats *stats)
 {
-    float now = (float)(stats->time_elapsed.tv_usec - stats->start.tv_usec) / 1000;
+    double before = (double)(((double)(stats->start.tv_sec) * 1000) + ((double)(stats->start.tv_usec) / 1000));
+    double after = (double)(((double)(stats->time_elapsed.tv_sec) * 1000) + ((double)(stats->time_elapsed.tv_usec) / 1000));
+    float now = (float)(after - before);
 
     if (stats->rtt.min > now || (int)stats->rtt.min == 0)
         stats->rtt.min = now;

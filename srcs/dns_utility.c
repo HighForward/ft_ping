@@ -14,13 +14,13 @@ int resolve_dns(t_ping_utility *ping_base)
 
     if (getaddrinfo(ping_base->dns_target, NULL, &hints, &result) != 0)
     {
-        printf("getaddrinfo: %s\n", strerror(errno));
+        printf("ft_ping: %s: Name or service not known\n", ping_base->dns_target);
         return (1);
     }
     struct sockaddr_in *ipv4 = (struct sockaddr_in *)result->ai_addr;
     void *addr = &(ipv4->sin_addr);
 
-    bzero(ping_base->ip, INET_ADDRSTRLEN);
+    ft_bzero(ping_base->ip, INET_ADDRSTRLEN);
     inet_ntop(result->ai_family, addr, ping_base->ip, INET_ADDRSTRLEN);
 
     (*ping_base).addr_host = (*ipv4);

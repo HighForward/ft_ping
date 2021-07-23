@@ -103,6 +103,9 @@
 		<Unit filename="/mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/srcs/statistics.c">
 			<Option target="ping"/>
 		</Unit>
+		<Unit filename="/mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/srcs/utils.c">
+			<Option target="ping"/>
+		</Unit>
 		<Unit filename="/mnt/c/Users/m4xdo/OneDrive/Bureau/share_folder/ft_ping/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

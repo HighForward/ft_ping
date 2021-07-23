@@ -42,8 +42,10 @@ int send_data(t_stats *stats, t_ping_utility *ping_base)
 
     if (sendto(ping_base->sockfd, &ping_base->send_pckt, sizeof(ICMP_pckt), 0, (struct sockaddr *)&ping_base->addr_host, sizeof(struct sockaddr)) < 0)
     {
-        printf("send error: ");
-        return str_error(strerror(errno), 1);
+        printf("connect: Invalid argument\n");
+//        printf("send error: ");
+//        return str_error(strerror(errno), 1);
+        exit(1);
     }
     stats->pck_send++;
     return (0);
@@ -53,8 +55,8 @@ int recv_data(unsigned char *buffer, t_stats *stats, t_ping_utility *ping_base)
 {
     struct msghdr msg;
     struct iovec   iov;
-    bzero(&msg, sizeof(struct msghdr));
-    bzero(&iov, sizeof(struct iovec));
+    ft_bzero(&msg, sizeof(struct msghdr));
+    ft_bzero(&iov, sizeof(struct iovec));
 
     struct sockaddr_in tmp;
     memcpy(&tmp, &ping_base->addr_host, sizeof(struct sockaddr_in));
@@ -75,5 +77,6 @@ int recv_data(unsigned char *buffer, t_stats *stats, t_ping_utility *ping_base)
         stats->pkt_replied = 1;
         ping_base->addr_hit = tmp;
     }
+
     return (0);
 }

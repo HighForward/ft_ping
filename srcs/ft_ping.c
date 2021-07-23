@@ -12,9 +12,9 @@ int str_error(char *str, int code)
     return (code);
 }
 
-int create_socket(int *sockfd)
+int create_socket(int *sockfd, t_options *options)
 {
-    int ttl = 128;
+    int ttl = options->t_option;
     struct timeval tv_out;
 
     tv_out.tv_sec = 1;
@@ -36,18 +36,18 @@ int main(int argc, char **argv)
 {
     t_stats stats;
     t_ping_utility ping_base;
-    bzero(&ping_base, sizeof(ping_base));
-    bzero(&ping_base, sizeof(stats));
+    ft_bzero(&ping_base, sizeof(ping_base));
+    ft_bzero(&ping_base, sizeof(stats));
 
     signal(SIGINT, intHandler);
 
-    if (parse_args(argv + 1, &ping_base.dns_target,  &ping_base.flag))
+    if (parse_args(argv + 1, &ping_base.dns_target,  &ping_base.flag, &ping_base.options))
         return (1);
 
-    if (toggle_flags(ping_base.flag))
+    if (toggle_flags(ping_base.flag, &ping_base.options))
         return (1);
 
-    if (create_socket(&ping_base.sockfd) < 0)
+    if (create_socket(&ping_base.sockfd, &ping_base.options) < 0)
         return (1);
 
     if (resolve_dns(&ping_base))
