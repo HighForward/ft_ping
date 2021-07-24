@@ -85,6 +85,7 @@ typedef struct s_stats
     struct timeval start;
     struct timeval time_elapsed;
     int pkt_replied;
+    int success_hop;
     t_rtt rtt;
 } t_stats;
 

@@ -61,8 +61,11 @@ int recv_data(unsigned char *buffer, t_stats *stats, t_ping_utility *ping_base)
     struct sockaddr_in tmp;
     memcpy(&tmp, &ping_base->addr_host, sizeof(struct sockaddr_in));
 
-    iov.iov_base = buffer;
-    iov.iov_len = sizeof(ICMP_pckt) + sizeof(struct ip) + 50;
+    unsigned char tmp_buffer[(sizeof(struct ip) + 4 + sizeof(struct ip) + sizeof(struct ICMP_pckt))];
+    bzero(tmp_buffer, sizeof(tmp_buffer));
+
+    iov.iov_base = tmp_buffer;
+    iov.iov_len = (sizeof(struct ip) + 4 + sizeof(struct ip) + sizeof(struct ICMP_pckt));
     msg.msg_iov = &iov;
     msg.msg_iovlen = 1;
     msg.msg_name = &tmp;
@@ -77,6 +80,8 @@ int recv_data(unsigned char *buffer, t_stats *stats, t_ping_utility *ping_base)
         stats->pkt_replied = 1;
         ping_base->addr_hit = tmp;
     }
+
+    memcpy(buffer, tmp_buffer, (sizeof(struct ip) + 4 + sizeof(struct ip) + sizeof(struct ICMP_pckt)));
 
     return (0);
 }

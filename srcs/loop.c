@@ -4,9 +4,8 @@ int ping_loop(t_ping_utility *ping_base, t_stats *stats)
 {
     struct ICMP_pckt *tmp_icmp;
     struct ip tmp_ip;
-    unsigned char pck_reply[sizeof(struct ip) + sizeof(struct ICMP_pckt)];
+    unsigned char pck_reply[(sizeof(struct ip) + 4 + sizeof(struct ip) + sizeof(struct ICMP_pckt))];
     ft_bzero(&(*stats), sizeof(t_stats));
-    ft_bzero(pck_reply, sizeof(pck_reply));
     ft_bzero(&ping_base->send_pckt, sizeof(struct ICMP_pckt));
 
     gettimeofday(&stats->start, NULL);
@@ -14,6 +13,7 @@ int ping_loop(t_ping_utility *ping_base, t_stats *stats)
 
     while (!STOP)
     {
+        ft_bzero(pck_reply, sizeof(pck_reply));
         ft_bzero(&ping_base->addr_hit, sizeof(ping_base->addr_hit));
         gettimeofday(&stats->start, NULL);
 

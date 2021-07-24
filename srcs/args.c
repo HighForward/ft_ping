@@ -7,7 +7,7 @@ int perform_t(char *argv, t_options *options)
         int tmp = atoi(argv);
         if (tmp <= 0 || tmp > 255)
         {
-            printf("ft_ping: invalid argument: '%d': out of range: 0 <= value <= 255", tmp);
+            printf("ft_ping: invalid argument: '%d': out of range: 0 <= value <= 255\n", tmp);
             exit(1);
         }
         options->t_option = tmp;
@@ -26,18 +26,13 @@ int parse_args(char **argv, char **dns_target, int *flag, t_options *options)
         arg = argv[i];
 
         if (strcmp(arg, "-h") == 0)
-        {
             perform_h();
-            tmp_flag |= H_OPTION;
-            exit(1);
-        }
         else if (strcmp(arg, "-v") == 0)
             tmp_flag |= V_OPTION;
         else if (strcmp(arg, "-t") == 0)
         {
-            i++;
             tmp_flag |= T_OPTION;
-            if (perform_t(argv[i], options))
+            if (perform_t(argv[++i], options))
                 perform_h();
         }
         else if (strcmp(arg, "-w") == 0)
