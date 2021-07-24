@@ -11,7 +11,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <netinet/ip_icmp.h>
-#include <errno.h>
 #include <signal.h>
 #include <sys/time.h>
 
@@ -20,23 +19,24 @@
 
 #define PING_PACKET_SIZE 56
 
-int errno;
 int STOP;
 
 enum V_Flags
 {
-    H_OPTION = 1 << 1, // binary 0001
-    V_OPTION = 1 << 2, // binary 0010
-    T_OPTION = 1 << 3, // binary 0100
-//    NOTHING2 = 1 << 3  // binary 1000
+    H_OPTION = 1 << 1, // binary 00000001
+    V_OPTION = 1 << 2, // binary 00000010
+    T_OPTION = 1 << 3, // binary 00000100
+    W_OPTION = 1 << 4, // binary 00001000
+    I_OPTION = 1 << 5  // binary 00010000
 };
 
 enum N_Flags
 {
-    H_BIT = 1, // binary 0001
-    V_BIT = 2, // binary 0010
-    T_BIT = 3, // binary 0100
-//    NOTHING2 = 1 << 3  // binary 1000
+    H_BIT = 1,
+    V_BIT = 2,
+    T_BIT = 3,
+    W_BIT = 4,
+    I_BIT = 5
 };
 
 typedef struct ICMP_pckt
@@ -49,8 +49,8 @@ typedef struct ICMP_pckt
 typedef struct s_options
 {
     int t_option;
+    int w_option;
     int i_option;
-
 } t_options;
 
 typedef struct s_ping
@@ -85,7 +85,6 @@ typedef struct s_stats
     struct timeval start;
     struct timeval time_elapsed;
     int pkt_replied;
-    int success_hop;
     t_rtt rtt;
 } t_stats;
 
@@ -106,6 +105,7 @@ void print_on_hops(ICMP_pckt *icmp_packet, struct ip ip_packet, t_stats *stats, 
 void print_statistics(t_stats *stats, t_ping_utility *ping_base);
 int toggle_flags(int flag, t_options *options);
 void perform_h();
+int exec_w(t_ping_utility *ping_base);
 
 
 // utils
@@ -113,6 +113,9 @@ char	*ft_strcpy(char *dest, char *src);
 int	    ft_isdigit(int c);
 void	ft_bzero(void *s, size_t n);
 int	    ft_atoi(const char *nptr);
+int	    ft_strncmp(const char *s1, const char *s2, size_t n);
+int	    ft_strlen(const char *str);
+
 
 
 #endif

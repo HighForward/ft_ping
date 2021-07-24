@@ -10,7 +10,6 @@ int ping_loop(t_ping_utility *ping_base, t_stats *stats)
 
     gettimeofday(&stats->start, NULL);
     gettimeofday(&stats->begin_pgrm, NULL);
-
     while (!STOP)
     {
         ft_bzero(pck_reply, sizeof(pck_reply));
@@ -34,13 +33,17 @@ int ping_loop(t_ping_utility *ping_base, t_stats *stats)
             print_on_hops(tmp_icmp, tmp_ip, stats, ping_base);
 
             gettimeofday(&stats->latest_pckt, NULL);
-            usleep(1000000);
+            usleep(ping_base->options.i_option);
         }
         else if (!STOP && stats->size_recv < 0)
         {
             if ((ping_base->flag & (1 << V_BIT)) > 0)
                 printf("time out: no response found!\n");
         }
+
+        if (exec_w(ping_base))
+            break ;
+
     }
     gettimeofday(&stats->time_elapsed, NULL);
     gettimeofday(&stats->latest_pckt, NULL);

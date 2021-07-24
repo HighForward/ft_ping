@@ -62,3 +62,32 @@ char	*ft_strcpy(char *dest, char *src)
     dest[i] = '\0';
     return (dest);
 }
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+    unsigned int	i;
+    unsigned char	*s;
+    unsigned char	*d;
+
+    s = (unsigned char*)s1;
+    d = (unsigned char*)s2;
+    i = 0;
+    while (i < n - 1 && s[i] && d[i] && s[i] == d[i])
+        i++;
+    if (n > 0)
+        return (s[i] - d[i]);
+    else
+        return (0);
+}
+
+int	ft_strlen(const char *str)
+{
+    int i;
+
+    i = 0;
+    if (!str)
+        return (0);
+    while (str[i])
+        i++;
+    return (i);
+}

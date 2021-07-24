@@ -44,7 +44,6 @@ int send_data(t_stats *stats, t_ping_utility *ping_base)
     {
         printf("connect: Invalid argument\n");
 //        printf("send error: ");
-//        return str_error(strerror(errno), 1);
         exit(1);
     }
     stats->pck_send++;

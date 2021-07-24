@@ -12,6 +12,17 @@ void perform_h()
     exit(1);
 }
 
+int exec_w(t_ping_utility *ping_base)
+{
+    if (((ping_base->flag & (1 << W_BIT)) > 0))
+    {
+        ping_base->options.w_option--;
+        if (ping_base->options.w_option == 0)
+            return (1);
+    }
+    return (0);
+}
+
 int toggle_flags(int flag, t_options *options)
 {
 //    if ((flag & (1 << H_BIT)) > 0)
@@ -20,5 +31,7 @@ int toggle_flags(int flag, t_options *options)
 //        printf("V ok\n");
     if ((flag & (1 << T_BIT)) <= 0 && options->t_option == 0)
         options->t_option = 128;
+    if ((flag & (1 << I_BIT)) <= 0 && options->i_option == 0)
+        options->i_option = 1 * 1000000;
     return (0);
 }
