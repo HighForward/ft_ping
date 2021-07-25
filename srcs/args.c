@@ -45,7 +45,7 @@ int perform_i(char *argv, t_options *options)
         int tmp = ft_atoi(argv);
         if (tmp <= 0 || tmp > 216000)
         {
-            printf("ft_ping: bad timing interval: '%s': 0.2 <= value <= 216000\n", argv);
+            printf("ft_ping: bad timing interval: '%s': 0 <= value <= 216000\n", argv);
             exit(1);
         }
         options->i_option = tmp * 1000000;

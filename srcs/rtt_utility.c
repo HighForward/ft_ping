@@ -27,9 +27,9 @@ void update_rtt_average(t_stats *stats)
     double after = (double)(((double)(stats->time_elapsed.tv_sec) * 1000) + ((double)(stats->time_elapsed.tv_usec) / 1000));
     float now = (float)(after - before);
 
-    if (stats->rtt.min > now || (int)stats->rtt.min == 0)
+    if (stats->rtt.min > now || (float)stats->rtt.min == 0)
         stats->rtt.min = now;
-    if (stats->rtt.max < now || (int)stats->rtt.max == 0)
+    if (stats->rtt.max < now || (float)stats->rtt.max == 0)
         stats->rtt.max = now;
 
     stats->rtt.avg = calculate_average(stats, now);

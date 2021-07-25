@@ -59,6 +59,7 @@ typedef struct s_ping
 {
     struct ICMP_pckt send_pckt;
     char ip[INET_ADDRSTRLEN];
+    char hit_ip[INET_ADDRSTRLEN];
     int sockfd;
     char *dns_target;
     struct sockaddr_in addr_host;
@@ -109,7 +110,7 @@ void print_statistics(t_stats *stats, t_ping_utility *ping_base);
 int toggle_flags(int flag, t_options *options);
 void perform_h();
 int exec_w(t_ping_utility *ping_base);
-
+void reverse_dns_lookup(t_ping_utility *ping_base, char *hit_ip);
 
 // utils
 char	*ft_strcpy(char *dest, char *src);

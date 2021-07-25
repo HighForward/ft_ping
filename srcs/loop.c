@@ -13,7 +13,7 @@ int ping_loop(t_ping_utility *ping_base, t_stats *stats)
     while (!STOP)
     {
         ft_bzero(pck_reply, sizeof(pck_reply));
-        ft_bzero(&ping_base->addr_hit, sizeof(ping_base->addr_hit));
+//        ft_bzero(&ping_base->addr_hit, sizeof(ping_base->addr_hit));
         gettimeofday(&stats->start, NULL);
 
         if (send_data(stats, ping_base))

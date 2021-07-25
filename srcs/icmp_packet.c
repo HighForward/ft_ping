@@ -43,10 +43,41 @@ int send_data(t_stats *stats, t_ping_utility *ping_base)
     if (sendto(ping_base->sockfd, &ping_base->send_pckt, sizeof(ICMP_pckt), 0, (struct sockaddr *)&ping_base->addr_host, sizeof(struct sockaddr)) < 0)
     {
         printf("connect: Invalid argument\n");
-//        printf("send error: ");
         exit(1);
     }
+
+//    printf("----------\ntype: %d\ncode: %d\nchecksum: %d\nid: %d\nsequence: %d\n----------\n",
+//           ping_base->send_pckt.hdr.type, ping_base->send_pckt.hdr.code, ping_base->send_pckt.hdr.checksum, ping_base->send_pckt.hdr.un.echo.id, ping_base->send_pckt.hdr.un.echo.sequence);
+
     stats->pck_send++;
+    return (0);
+}
+
+int compare_packet(const struct ICMP_pckt *p1, const struct ICMP_pckt *p2)
+{
+    if (p1->hdr.type == p2->hdr.type &&
+            p1->hdr.code == p2->hdr.code &&
+            p1->hdr.checksum == p2->hdr.checksum &&
+            p1->hdr.un.echo.id == p2->hdr.un.echo.id &&
+            p1->hdr.un.echo.sequence == p2->hdr.un.echo.sequence)
+        return (1);
+    return (0);
+}
+
+int is_loopback_ip(t_ping_utility *ping_base)
+{
+    if (ft_strlen(ping_base->dns_target) > 3 && (ft_strncmp("127", ping_base->dns_target, 3) == 0 || (ft_strncmp("localhost", ping_base->dns_target, 9) == 0)))
+            return (1);
+    return (0);
+}
+
+int cancel_loopback(t_ping_utility *ping_base, unsigned char *tmp_buffer)
+{
+    struct ICMP_pckt *tmp_icmp;
+    tmp_icmp = (ICMP_pckt *) (tmp_buffer + sizeof(struct ip));
+
+    if (is_loopback_ip(ping_base) && compare_packet(&ping_base->send_pckt, tmp_icmp))
+        return (1);
     return (0);
 }
 
@@ -58,8 +89,6 @@ int recv_data(unsigned char *buffer, t_stats *stats, t_ping_utility *ping_base)
     ft_bzero(&iov, sizeof(struct iovec));
 
     struct sockaddr_in tmp;
-    memcpy(&tmp, &ping_base->addr_host, sizeof(struct sockaddr_in));
-
     unsigned char tmp_buffer[(sizeof(struct ip) + 4 + sizeof(struct ip) + sizeof(struct ICMP_pckt))];
     bzero(tmp_buffer, sizeof(tmp_buffer));
 
@@ -73,12 +102,26 @@ int recv_data(unsigned char *buffer, t_stats *stats, t_ping_utility *ping_base)
     msg.msg_controllen = 0;
     msg.msg_flags = 0;
 
-    if ((stats->size_recv = recvmsg(ping_base->sockfd, &msg, 0)) >= 0)
+    int x = 1;
+    do
     {
-        stats->pck_recv++;
-        stats->pkt_replied = 1;
-        ping_base->addr_hit = tmp;
-    }
+        if ((stats->size_recv = recvmsg(ping_base->sockfd, &msg, 0)) >= 0)
+        {
+            if (cancel_loopback(ping_base, tmp_buffer))
+                continue;
+
+            stats->pck_recv++;
+            stats->pkt_replied = 1;
+            if (ping_base->addr_hit.sin_addr.s_addr == 0)
+            {
+                ping_base->addr_hit = tmp;
+                inet_ntop(ping_base->addr_hit.sin_family, &ping_base->addr_hit.sin_addr, ping_base->hit_ip, INET_ADDRSTRLEN);
+                reverse_dns_lookup(ping_base, ping_base->hit_ip);
+
+            }
+        }
+        x--;
+    } while (x != 0);
 
     memcpy(buffer, tmp_buffer, (sizeof(struct ip) + 4 + sizeof(struct ip) + sizeof(struct ICMP_pckt)));
 

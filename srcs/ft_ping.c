@@ -23,7 +23,7 @@ int create_socket(int *sockfd, t_options *options)
     (*sockfd) = socket(AF_INET, SOCK_RAW, IPPROTO_ICMP);
 
     if ((*sockfd) < 0)
-        return str_error("Socket file descriptor not received!", -1);
+        return str_error("permission denied, contact your administrator", -1);
     if (setsockopt((*sockfd), SOL_IP, IP_TTL, &ttl, sizeof(ttl)) != 0)
         return str_error("Setting socket options to TTL failed!", -1);
     if (setsockopt((*sockfd), SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv_out, sizeof(tv_out)) != 0)
