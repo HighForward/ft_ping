@@ -8,7 +8,10 @@ void perform_h()
     printf("\t-h                 print help and exit\n");
     printf("\t-v                 verbose output\n");
     printf("\t-t <ttl>           define time to live\n");
-    printf("\t-i <interval>      seconds between sending each packet (TODO)\n");
+    printf("\t-i <interval>      seconds between sending each packet\n");
+    printf("\t-w <deadline>      reply wait <deadline> in seconds\n");
+    printf("\t-q                 quiet output\n");
+
     exit(1);
 }
 

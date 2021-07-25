@@ -42,13 +42,8 @@ int perform_i(char *argv, t_options *options)
 {
     if (argv)
     {
-//        for (int i = 0; i < ft_strlen(argv); i++)
-//        {
-//            if (ft_isdigit(argv[i]) == 0)
-//                perform_h();
-//        }
         int tmp = ft_atoi(argv);
-        if (tmp <= 0.2 || tmp > 216000)
+        if (tmp <= 0 || tmp > 216000)
         {
             printf("ft_ping: bad timing interval: '%s': 0.2 <= value <= 216000\n", argv);
             exit(1);
@@ -71,10 +66,14 @@ int parse_args(char **argv, char **dns_target, int *flag, t_options *options)
         if (ft_strlen(arg) == 0)
             perform_h();
 
+        //TODO: -q -W
+
         if (ft_strncmp(arg, "-h", ft_strlen(arg)) == 0)
             perform_h();
         else if (ft_strncmp(arg, "-v", ft_strlen(arg)) == 0)
             tmp_flag |= V_OPTION;
+        else if (ft_strncmp(arg, "-q", ft_strlen(arg)) == 0)
+            tmp_flag |= Q_OPTION;
         else if (ft_strncmp(arg, "-t", ft_strlen(arg)) == 0)
         {
             tmp_flag |= T_OPTION;

@@ -30,14 +30,15 @@ int ping_loop(t_ping_utility *ping_base, t_stats *stats)
             tmp_icmp = (ICMP_pckt *) (pck_reply + sizeof(struct ip));
             memcpy(&tmp_ip, pck_reply, 20);
 
-            print_on_hops(tmp_icmp, tmp_ip, stats, ping_base);
+            if ((ping_base->flag & (1 << Q_BIT)) <= 0)
+                print_on_hops(tmp_icmp, tmp_ip, stats, ping_base);
 
             gettimeofday(&stats->latest_pckt, NULL);
             usleep(ping_base->options.i_option);
         }
         else if (!STOP && stats->size_recv < 0)
         {
-            if ((ping_base->flag & (1 << V_BIT)) > 0)
+            if ((ping_base->flag & (1 << V_BIT)) > 0 && ((ping_base->flag & (1 << Q_BIT)) <= 0))
                 printf("time out: no response found!\n");
         }
 

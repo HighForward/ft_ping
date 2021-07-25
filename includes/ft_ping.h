@@ -27,7 +27,8 @@ enum V_Flags
     V_OPTION = 1 << 2, // binary 00000010
     T_OPTION = 1 << 3, // binary 00000100
     W_OPTION = 1 << 4, // binary 00001000
-    I_OPTION = 1 << 5  // binary 00010000
+    I_OPTION = 1 << 5,  // binary 00010000
+    Q_OPTION = 1 << 6  // binary 00010000
 };
 
 enum N_Flags
@@ -36,7 +37,8 @@ enum N_Flags
     V_BIT = 2,
     T_BIT = 3,
     W_BIT = 4,
-    I_BIT = 5
+    I_BIT = 5,
+    Q_BIT = 6
 };
 
 typedef struct ICMP_pckt
@@ -61,6 +63,7 @@ typedef struct s_ping
     char *dns_target;
     struct sockaddr_in addr_host;
     struct sockaddr_in addr_hit;
+    char fqdn[NI_MAXHOST];
     int flag;
     t_options options;
 

@@ -2,7 +2,7 @@
 
 int resolve_dns(t_ping_utility *ping_base)
 {
-    struct addrinfo hints;
+    struct addrinfo hints, *p;
     memset(&hints, 0, sizeof(struct addrinfo));
 
     hints.ai_family = AF_INET;
@@ -24,6 +24,10 @@ int resolve_dns(t_ping_utility *ping_base)
     inet_ntop(result->ai_family, addr, ping_base->ip, INET_ADDRSTRLEN);
 
     (*ping_base).addr_host = (*ipv4);
+
     freeaddrinfo(result);
+
+
+
     return (0);
 }
